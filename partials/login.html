@@ -1,0 +1,44 @@
+<section id="login-page">
+  
+  <div class="container-fluid">
+
+	  <div class="row">
+	  	<div class="col-md-12"><h3>Login or Register</h3></div>
+	  </div>
+	  <div class="row">
+			<div class="col-md-1 filler"></div>
+		  <div class="col-md-4 login-label">
+		    Email:
+		  </div> 
+			<div class="col-md-4">
+		    <input type="text" id="email-input" ng-model="account.email">
+			</div>
+		  <div class="col-md-3 filler"></div>
+		</div> <!-- END .row -->
+
+		<div class="row">
+		  <div class="col-md-1 filler"></div>
+		  <div class="col-md-4 login-label">
+		    Password: 
+			</div>
+			<div class="col-md-4">
+		    <input type="password" id="pword-input" ng-model="account.password" ng-enter="login()">
+		  </div>
+		  <div class="col-md-3 filler"></div>
+		</div> <!-- END .row -->
+
+		<div class="row">
+			<div class="col-md-` filler"></div>
+		  <!-- <div class="login-button"> -->
+		  <div class="col-md-4 login-button">
+			</div>
+			<div class="col-md-4 login-button">
+			  <button ng-click="login()">Login</button>
+			  <button ng-click="register()">Register</button>
+			</div>
+			<div class="col-md-3 filler"></div>
+		  </div> <!-- END .row -->
+		</div>
+
+	</div> <!-- END .container -->
+</section>

@@ -1,0 +1,114 @@
+
+<div id="front-container" class="container gray-theme" ng-init="selectedFilters.finished = false; sortOrder = 'date'"> <!-- Filter to show only Backlog on page load / sort initially by date -->
+
+	<!-- Filter rows -->
+	<div class="row list-filters">
+		<div id="backlog-button" class="col-md-4 active-filter" ng-click="selectedFilters.finished = false; backlogButtonClasses($event)">Backlog</div>
+		<div id="finished-button" class="col-md-2 hand" ng-click="selectedFilters.finished = true; backlogButtonClasses($event)">Finished</div>
+		<div id="search-box" class="col-md-2">
+			<!-- <input type="text" placeholder="Search" ng-model="selectedFilters"> -->
+			Theme:
+		</div>
+		<div id="bw-button" class="col-md-2 active-filter" ng-click="changeTheme($event)">Gray</div>
+		<div id="color-button" class="col-md-2 hand" ng-click="changeTheme($event)">Color</div>
+	</div>
+	
+	<div class="row media-filters">
+		<div class="col-md-2 filter-button active-filter" id="all-filter" ng-click="selectedFilters.type = ''; filterButtonClasses($event)">All</div>
+		<div class="col-md-2 hand filter-button" id="movie-filter" ng-click="selectedFilters.type = 'Movie'; filterButtonClasses($event)">Movies</div>
+		<div class="col-md-2 hand filter-button" id="show-filter" ng-click="selectedFilters.type = 'TV Show'; filterButtonClasses($event)">TV Shows</div>
+		<div class="col-md-2 hand filter-button" id="music-filter" ng-click="selectedFilters.type = 'Music'; filterButtonClasses($event)">Music</div>
+		<div class="col-md-2 hand filter-button" id="book-filter" ng-click="selectedFilters.type = 'Book'; filterButtonClasses($event)">Books</div>
+		<div class="col-md-2 hand filter-button" id="game-filter" ng-click="selectedFilters.type = 'Game'; filterButtonClasses($event)">Video Games</div>
+	</div> <!-- END Filter rows -->
+
+	<div class="row list-headers">
+		<div class="col-md-1 finished-column"><!-- Finished --></div>
+		<div class="col-md-3 name-header"><span id="name-link" class="hand sort-link" ng-click="sortOrder = 'name'; sortLinkClasses($event)">Name</span></div>
+		<div class="col-md-1 type-header"><span id="type-link" class="hand sort-link" ng-click="sortOrder = 'type'; sortLinkClasses($event)">Type</span></div>
+		<div class="col-md-2 rec-header"><span id="rec-link" class="hand sort-link" ng-click="sortOrder = 'recommended'; sortLinkClasses($event)">Recommended By</span></div>
+		<div class="col-md-3 notes-header"><span id="notes-link" class="hand sort-link" ng-click="sortOrder = 'notes'; sortLinkClasses($event)">Notes</span></div>
+		<div class="col-md-1"><span id="added-link" class="active-sort sort-link" ng-click="sortOrder = 'date'; sortLinkClasses($event)">Added</span></div>
+		<div class="col-md-1 right"><!-- Delete --></div>
+	</div> <!-- END Headings row -->
+
+	<div class="spreadsheet">
+	<!-- START ng-repeat .list-item -->
+		<div class="row list-item"  ng-class="applyClass(item)" ng-repeat="item in localCopy | filter: selectedFilters | orderBy: sortOrder">
+			
+			<!-- <div ng-class="applyClass(item)"> -->
+				<!-- Finished Column -->
+				<div class="col-md-1 finished-column">
+					<input type="checkbox" ng-checked="item.finished==true" ng-click="editProperty('finished', !item.finished)">
+				</div>
+
+				<!-- Name Column -->
+				<div class="col-md-3 data-cell">
+					<span ng-click="editName = !editName; editMode('name')" ng-hide="editName">{{ item.name }}</span>
+					<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.name" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('name', editProp.name)">
+				</div>
+
+				<!-- Type Column -->
+				<div class="col-md-1 data-cell">
+					<span ng-click="editType = !editType; editMode('type')" ng-hide="editType">{{ item.type }}</span>
+					<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.type" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-change="editProperty('type', editProp.type)">
+						<option value="" disabled ng-selected="true" disabled>Type</option>
+						<option value="Movie">Movie</option>
+						<option value="TV Show">TV Show</option>
+						<option value="Music">Music</option>
+						<option value="Book">Book</option>
+						<option value="Game">Game</option>
+					</select>
+				</div>
+
+				<!-- Recommended Column -->
+				<div class="col-md-2 data-cell">
+					<span ng-click="editRec = !editRec; editMode('recommended')" ng-hide="editRec">{{ item.recommended }}</span>
+					<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.recommended" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('recommended', editProp.recommended)">
+				</div>		
+
+				<!-- Notes Column -->
+				<div class="col-md-3 data-cell notes-column">
+					<span ng-click="editNotes = !editNotes; editMode('notes')" ng-hide="editNotes">{{ item.notes }}</span>
+					<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.notes" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('notes', editProp.notes)">
+				</div>	
+
+				<!-- Date Column -->
+				<div class="col-md-1 data-cell">{{ item.date | date:'MM/dd/yyyy'}}</div>
+				
+				<!-- Delete Column -->
+				<div class="col-md-1 del-button data-cell right"><span class="glyphicon glyphicon-remove hand" ng-click="deleteItem()"></span></div>
+			<!-- </div> END Type class DIV -->
+		</div> <!-- END ng-repeat .list-item -->
+	</div> <!-- END .spreadsheet -->
+
+	<div class="col-md-1 finished-column"><!-- Finished Column--></div>
+	<div class="row new-item">
+		<div class="col-md-3">
+			<input type="text" id="name-input" ng-model="newItem.name" placeholder="Name" id="name-field">
+		</div>
+		<div class="col-md-1">
+			<select name="typeSelect" id="type-select" ng-model="newItem.type">
+				<option value="" disabled ng-selected="true" disabled>Type</option>
+				<option value="Movie">Movie</option>
+				<option value="TV Show">TV Show</option>
+				<option value="Music">Music</option>
+				<option value="Book">Book</option>
+				<option value="Game">Game</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<input type="text" id="recommended-input" ng-model="newItem.recommended" placeholder="Recommended By">
+		</div>
+		<div class="col-md-3 notes-div">
+			<input type="text" id="notes-input" ng-model="newItem.notes" ng-enter="addNewItem()" ng-esc="cancelAdd()" placeholder="Notes">
+		</div>
+		<div class="col-md-2 usage-tip">
+			<span ng-show="!newItem.notes"></span>
+			<span ng-show="newItem.notes">Press Enter to Save or Esc to Cancel</span>
+		</div> <!-- in place of Added and Delete columns -->
+
+	</div> <!-- END .new-item -->
+
+</div> <!-- END .container -->
+

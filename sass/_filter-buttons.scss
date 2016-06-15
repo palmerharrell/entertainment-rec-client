@@ -1,0 +1,118 @@
+
+.list-filters {
+	margin-bottom: 20px;
+	text-align: center;
+	div {
+		// border: 1px dashed royalblue;
+		height: 30px;
+		line-height: 26px;
+	}
+}
+
+.media-filters {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	// margin-bottom: 10px;
+	div {
+		// border: 1px dashed royalblue;
+		border: 1px solid white;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		height: 40px;
+		line-height: 40px;
+	}
+	div:hover {
+	color: white;
+	}
+}
+
+.active-filter {
+	color: white;
+}
+
+
+// Backlog/Finished & Theme Buttons
+#backlog-button,
+#finished-button,
+#bw-button,
+#color-button {
+	// border: 2px solid black;
+	border: 1px solid white;
+	font-weight: bolder;
+}
+
+#backlog-button {
+	color: black;
+	background-color: lightgray;
+	// border-right: none;
+	// border-top-left-radius: 10px;
+	// border-bottom-left-radius: 10px;
+}
+
+#backlog-button:hover,
+#backlog-button.active-filter {
+	color: white;
+	background-color: slategray;
+}
+
+#finished-button {
+	color: black;
+	background-color: lightgray;
+	// border-top-right-radius: 10px;
+	// border-bottom-right-radius: 10px;
+}
+
+#finished-button:hover,
+#finished-button.active-filter {
+	color: white;
+	background-color: slategray;
+}
+
+
+#search-box,
+#theme-label {
+	text-align: right;
+	font-weight: bold;
+	padding-right: 5px;
+}
+
+// #search-box {
+// 	// width: 90px;
+// 	// width: 100%;
+// 	padding: 0;
+// 	input {
+// 		width: 95%;
+// 		height: 25px;
+// 	}
+// }
+
+#bw-button {
+	color: black;
+	background-color: lightgray;
+	// border-right: none;
+	// border-top-left-radius: 10px;
+	// border-bottom-left-radius: 10px;
+}
+
+#bw-button:hover,
+#bw-button.active-filter {
+	color: white;
+	background-color: slategray;
+}
+
+#color-button {
+	color: black;
+	background-color: lightgray;
+	// border-top-right-radius: 10px;
+	// border-bottom-right-radius: 10px;
+}
+
+#color-button:hover,
+#color-button.active-filter {
+	color: white;
+	background-color: slategray;
+}
+
+
+

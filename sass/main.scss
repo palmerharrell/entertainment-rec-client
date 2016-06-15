@@ -1,0 +1,204 @@
+@import 'colors';
+@import 'login';
+@import 'themes';
+@import 'filter-buttons';
+
+body {
+	background-color: white;
+	font-family: 'Roboto', sans-serif;
+
+}
+
+#front-container {
+	// height: 100%;
+	// width: 100%;
+	margin-top: 130px;
+}
+
+.page-header {
+	background-color: slategray;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 120px;
+	width: 100%;
+	margin-top: 0;
+	padding-top: 30px;
+	border-bottom: 2px solid black;
+}
+
+.page-head {
+	.heading {
+		color: white;
+	}
+	h1 {
+		font-family: 'Slabo 27px', serif;
+		margin-top: 10px;
+	}
+	div {
+		height: 60px;
+		line-height: 60px;
+		text-align: center;
+	}
+	.logout-div {
+		padding-left: 40px;
+	}
+	#logout-link {
+		padding: 5px 10px;
+		color: black;
+		font-weight: bold;
+		background-color: lightgray;
+		border: 2px solid black;
+	}
+	#logout-link:hover {
+		color: black;
+		border: 2px solid black;
+		text-decoration: none;
+	}
+	#demo-link {
+		a {
+			color: slategray;
+		}
+	}
+}
+
+.new-item {
+	// margin: 0 5px;
+	padding: 10px;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+}
+
+.list-headers {
+	font-weight: bold;
+	height: 20px;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	color: white;
+	background-color: black;
+}
+
+.type-header,
+.rec-header {
+	padding-left: 18px;
+}
+
+.name-header{
+	padding-left: 24px;
+}
+
+.list-item {
+	padding: 10px 10px 6px;
+	border: 1px solid white;
+	border-bottom: none;
+	input,
+	select {
+		border: none;
+		height: 20px;
+	}
+	select {
+		position: relative;
+		top: -1px;
+		left: -8px;
+	}
+	input {
+		position: relative;
+		left: -1px;
+	}
+	input:focus,
+	select:focus {
+		outline: none;
+	}
+}
+
+.spreadsheet {
+	.row:last-of-type {
+		border-bottom: 1px solid white;
+	}
+}
+
+.finished-column {
+	width: 10px;
+	padding-left: 5px;
+	input {
+		margin-top: 0;
+	}
+}
+
+.notes-column,
+.notes-header {
+	width: 400px;
+}
+
+#new-name {
+	width: 250px;
+}
+
+#new-notes {
+	width: 370px;
+}
+
+.sort-link:hover {
+	text-decoration: underline;
+}
+
+.active-sort {
+	text-decoration: underline;
+}
+
+#name-input {
+	position: relative;
+	left: 20px;
+	width: 90%;
+}
+
+#recommended-input {
+	position: relative;
+	left: 17px;
+}
+
+.notes-div {
+	margin-right: 0;
+}
+
+#notes-input {
+	position: relative;
+	left: 19px;
+	width: 80%;
+}
+
+#type-select {
+	position: relative;
+	left: 10px;
+	border: none;
+	margin-top: 3px;
+}
+
+.usage-tip {
+	margin: 0;
+	padding: 0;
+	width: 250px;
+}
+
+.del-button {
+	width: 5%;
+	float: right;
+	padding-right: 0;
+	color: white;
+	-webkit-text-stroke: 1px gray;
+ 	span:hover {
+ 		color: gray;
+ 	}
+}
+
+.right {
+	text-align: right;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+
+

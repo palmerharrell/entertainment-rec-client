@@ -1,0 +1,112 @@
+// ~~~ COLOR THEME ~~~
+
+// Media Filter Buttons
+.color-theme {
+	#all-filter {
+		background-color: $red-light;
+	}
+	#all-filter:hover,
+	#all-filter.active-filter {
+		background-color: $red-dark;
+	}
+
+	#movie-filter {
+		background-color: $yellow-light;
+	}
+	#movie-filter:hover,
+	#movie-filter.active-filter {
+		background-color: $yellow-dark;
+	}
+
+	#show-filter {
+		background-color: $pink-light;
+	}
+	#show-filter:hover,
+	#show-filter.active-filter {
+		background-color: $pink-dark;
+	}
+
+	#music-filter {
+		background-color: $green-light;
+	}
+	#music-filter:hover,
+	#music-filter.active-filter {
+		background-color: $green-dark;
+	}
+
+	#book-filter {
+		background-color: $blue-light;
+	}
+	#book-filter:hover,
+	#book-filter.active-filter {
+		background-color: $blue-dark;
+	}
+
+	#game-filter {
+		background-color: $purple-light;
+	}
+	#game-filter:hover,
+	#game-filter.active-filter {
+		background-color: $purple-dark;
+	}
+
+
+	// ROW COLOR BY MEDIA TYPE
+	.book-item {
+		background-color: $blue-light;
+	}
+
+	.show-item {
+		background-color: $pink-light;
+	}
+
+	.movie-item {
+		background-color: $yellow-light;
+	}
+
+	.music-item {
+		background-color: $green-light;
+	}
+
+	.game-item {
+		background-color: $purple-light;
+	}
+	
+
+} // END COLOR THEME
+
+
+// ~~~ GRAY THEME ~~~
+// Media Filter Buttons
+.gray-theme {
+	#all-filter,
+	#movie-filter,
+	#show-filter,
+	#music-filter,
+	#book-filter,
+	#game-filter {
+		background-color: lightgray;
+	}
+	#all-filter:hover,
+	#movie-filter:hover,
+	#show-filter:hover,
+	#music-filter:hover,
+	#book-filter:hover,
+	#game-filter:hover,
+	#all-filter.active-filter,
+	#movie-filter.active-filter,
+	#show-filter.active-filter,
+	#music-filter.active-filter,
+	#book-filter.active-filter,
+	#game-filter.active-filter {
+		background-color: slategray;
+	}
+	.list-item:nth-child(odd) {
+		background-color: $light;
+	}
+	.list-item:nth-child(even) {
+		background-color: lightgray;
+	}
+} // END GRAY THEME
+
+
