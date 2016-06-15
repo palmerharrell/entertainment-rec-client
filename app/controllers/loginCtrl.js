@@ -4,10 +4,11 @@ app.controller('LoginCtrl',
 [
   '$http', 
   '$scope',
+  '$location',
   'apiURL',
   'authFactory',
 
-  function ($http, $scope, apiURL, authFactory) {
+  function ($http, $scope, $location, apiURL, authFactory) {
 
     console.log("LoginCtrl loaded");
 
@@ -29,9 +30,11 @@ app.controller('LoginCtrl',
                 })
               }).then(
                 response => {
-                  let theUser = response.data[0];
+                  console.log("response.data: ", response.data);
+                  let theUser = response.data;
                   authFactory.setUser(theUser);
                   console.log("resolve fired", theUser);
+                  $location.path('/');
                 },
                 response => {
                   console.log("reject fired", response);
@@ -45,6 +48,7 @@ app.controller('LoginCtrl',
                           let theUser = response.data[0];
                           console.log("Found the User", theUser);
                           authFactory.setUser(theUser);
+                          $location.path('/');
                         },
                         response => console.log("Could not find that User", response)
                         

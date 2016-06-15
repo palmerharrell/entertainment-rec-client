@@ -1,13 +1,19 @@
 app.controller("frontCtrl", [
   "$scope",
   "$http",
+  "$location",
   "getFactory",
   "authFactory",
   
-  function($scope, $http, getFactory, authFactory) {
+  function($scope, $http, $location, getFactory, authFactory) {
     
-    //var currentUser = authFactory.getUser();
-    var selectedFilters = {};
+    let currentUser = authFactory.getUser();
+
+    if (currentUser === null) {
+      $location.path('/login');
+    };
+
+    let selectedFilters = {};
     
     // For editing properties of existing items
     $scope.editProp = {
