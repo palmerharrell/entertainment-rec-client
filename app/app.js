@@ -1,9 +1,8 @@
 "use strict";
 
-var app = angular.module("ERM-App", ["ngRoute"]);
+let app = angular.module("ERM-App", ["ngRoute"]);
 
-// Address of Firebase database
-app.constant('firebaseURL', "https://entertainmentbacklog.firebaseio.com");
+app.constant('apiURL', 'http://localhost:5000/api');
 
 // Set up angular-route
 app.config(["$routeProvider",
@@ -26,7 +25,7 @@ app.config(["$routeProvider",
       });
   }]);
 
-// redirect to login if user is not authenticated
+// TODO: redirect to login if user is not authenticated
 
 
 
