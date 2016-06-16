@@ -35,6 +35,32 @@ app.controller("frontCtrl", [
       Recommender: ""
     };
 
+    $scope.loadMediaTypes = function() {
+      $scope.mediaTypes = [];
+      $http.get(`${apiURL}/mediatype`)
+        .then(
+          function(mediaTypesObj) {
+            for (var i in mediaTypesObj.data) {
+              $scope.mediaTypes.push(mediaTypesObj.data[i]);
+            }
+            console.log("$scope.mediaTypes: ", $scope.mediaTypes);
+
+    // ~~~ TESTING GET IDMEDIATYPE BY MEDIATYPE NAME ~~~
+            var selectedTypeObj = $scope.mediaTypes.filter(function(item) {
+              return item.Name == "TV Show";
+            });
+            console.log("selectedTypeObj: ", selectedTypeObj);
+            var idOfSelectedType = selectedTypeObj[0].IdMediaType;
+            console.log("idOfSelectedType: ", idOfSelectedType);
+
+
+          },
+          function() {
+            console.log("Rejected");
+          }
+        );
+    }
+
     $scope.loadMediaItems = function() {
       $scope.localCopy = [];
       getFactory().then(
@@ -201,8 +227,12 @@ app.controller("frontCtrl", [
       }
     };
 
+    // Get MediaTypes and MediaItems on page load if user is authenticated
+    if (currentUser != null) {
+      $scope.loadMediaTypes();
+      $scope.loadMediaItems();
+    };
 
-    $scope.loadMediaItems(); // Get list on page load
     $("#name-input").focus(); // Set focus to new item inputs
     $("#logout-link").show(); // Show logout link
 
