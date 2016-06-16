@@ -1,10 +1,10 @@
 
-<div id="front-container" class="container gray-theme" ng-init="selectedFilters.finished = false; sortOrder = 'date'"> <!-- Filter to show only Backlog on page load / sort initially by date -->
+<div id="front-container" class="container gray-theme" ng-init="selectedFilters.Finished = false; sortOrder = 'date'"> <!-- Filter to show only Backlog on page load / sort initially by date -->
 
 	<!-- Filter rows -->
 	<div class="row list-filters">
-		<div id="backlog-button" class="col-md-4 active-filter" ng-click="selectedFilters.finished = false; backlogButtonClasses($event)">Backlog</div>
-		<div id="finished-button" class="col-md-2 hand" ng-click="selectedFilters.finished = true; backlogButtonClasses($event)">Finished</div>
+		<div id="backlog-button" class="col-md-4 active-filter" ng-click="selectedFilters.Finished = false; backlogButtonClasses($event)">Backlog</div>
+		<div id="finished-button" class="col-md-2 hand" ng-click="selectedFilters.Finished = true; backlogButtonClasses($event)">Finished</div>
 		<div id="search-box" class="col-md-2">
 			<!-- <input type="text" placeholder="Search" ng-model="selectedFilters"> -->
 			Theme:
@@ -14,21 +14,21 @@
 	</div>
 	
 	<div class="row media-filters">
-		<div class="col-md-2 filter-button active-filter" id="all-filter" ng-click="selectedFilters.type = ''; filterButtonClasses($event)">All</div>
-		<div class="col-md-2 hand filter-button" id="movie-filter" ng-click="selectedFilters.type = 'Movie'; filterButtonClasses($event)">Movies</div>
-		<div class="col-md-2 hand filter-button" id="show-filter" ng-click="selectedFilters.type = 'TV Show'; filterButtonClasses($event)">TV Shows</div>
-		<div class="col-md-2 hand filter-button" id="music-filter" ng-click="selectedFilters.type = 'Music'; filterButtonClasses($event)">Music</div>
-		<div class="col-md-2 hand filter-button" id="book-filter" ng-click="selectedFilters.type = 'Book'; filterButtonClasses($event)">Books</div>
-		<div class="col-md-2 hand filter-button" id="game-filter" ng-click="selectedFilters.type = 'Game'; filterButtonClasses($event)">Video Games</div>
+		<div class="col-md-2 filter-button active-filter" id="all-filter" ng-click="selectedFilters.Type = ''; filterButtonClasses($event)">All</div>
+		<div class="col-md-2 hand filter-button" id="movie-filter" ng-click="selectedFilters.Type = 'Movie'; filterButtonClasses($event)">Movies</div>
+		<div class="col-md-2 hand filter-button" id="show-filter" ng-click="selectedFilters.Type = 'TV Show'; filterButtonClasses($event)">TV Shows</div>
+		<div class="col-md-2 hand filter-button" id="music-filter" ng-click="selectedFilters.Type = 'Music'; filterButtonClasses($event)">Music</div>
+		<div class="col-md-2 hand filter-button" id="book-filter" ng-click="selectedFilters.Type = 'Book'; filterButtonClasses($event)">Books</div>
+		<div class="col-md-2 hand filter-button" id="game-filter" ng-click="selectedFilters.Type = 'Game'; filterButtonClasses($event)">Video Games</div>
 	</div> <!-- END Filter rows -->
 
 	<div class="row list-headers">
 		<div class="col-md-1 finished-column"><!-- Finished --></div>
-		<div class="col-md-3 name-header"><span id="name-link" class="hand sort-link" ng-click="sortOrder = 'name'; sortLinkClasses($event)">Name</span></div>
-		<div class="col-md-1 type-header"><span id="type-link" class="hand sort-link" ng-click="sortOrder = 'type'; sortLinkClasses($event)">Type</span></div>
-		<div class="col-md-2 rec-header"><span id="rec-link" class="hand sort-link" ng-click="sortOrder = 'recommended'; sortLinkClasses($event)">Recommended By</span></div>
-		<div class="col-md-3 notes-header"><span id="notes-link" class="hand sort-link" ng-click="sortOrder = 'notes'; sortLinkClasses($event)">Notes</span></div>
-		<div class="col-md-1"><span id="added-link" class="active-sort sort-link" ng-click="sortOrder = 'date'; sortLinkClasses($event)">Added</span></div>
+		<div class="col-md-3 name-header"><span id="name-link" class="hand sort-link" ng-click="sortOrder = 'Name'; sortLinkClasses($event)">Name</span></div>
+		<div class="col-md-1 type-header"><span id="type-link" class="hand sort-link" ng-click="sortOrder = 'Type'; sortLinkClasses($event)">Type</span></div>
+		<div class="col-md-2 rec-header"><span id="rec-link" class="hand sort-link" ng-click="sortOrder = 'Recommender'; sortLinkClasses($event)">Recommended By</span></div>
+		<div class="col-md-3 notes-header"><span id="notes-link" class="hand sort-link" ng-click="sortOrder = 'Notes'; sortLinkClasses($event)">Notes</span></div>
+		<div class="col-md-1"><span id="added-link" class="active-sort sort-link" ng-click="sortOrder = 'DateAdded'; sortLinkClasses($event)">Added</span></div>
 		<div class="col-md-1 right"><!-- Delete --></div>
 	</div> <!-- END Headings row -->
 
@@ -39,12 +39,12 @@
 			<!-- <div ng-class="applyClass(item)"> -->
 				<!-- Finished Column -->
 				<div class="col-md-1 finished-column">
-					<input type="checkbox" ng-checked="item.finished==true" ng-click="editProperty('finished', !item.finished)">
+					<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('finished', !item.Finished)">
 				</div>
 
 				<!-- Name Column -->
 				<div class="col-md-3 data-cell">
-					<span ng-click="editName = !editName; editMode('name')" ng-hide="editName">{{ item.name }}</span>
+					<span ng-click="editName = !editName; editMode('name')" ng-hide="editName">{{ item.Name }}</span>
 					<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.name" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('name', editProp.name)">
 				</div>
 
@@ -63,18 +63,18 @@
 
 				<!-- Recommended Column -->
 				<div class="col-md-2 data-cell">
-					<span ng-click="editRec = !editRec; editMode('recommended')" ng-hide="editRec">{{ item.recommended }}</span>
+					<span ng-click="editRec = !editRec; editMode('recommended')" ng-hide="editRec">{{ item.Recommender }}</span>
 					<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.recommended" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('recommended', editProp.recommended)">
 				</div>		
 
 				<!-- Notes Column -->
 				<div class="col-md-3 data-cell notes-column">
-					<span ng-click="editNotes = !editNotes; editMode('notes')" ng-hide="editNotes">{{ item.notes }}</span>
+					<span ng-click="editNotes = !editNotes; editMode('notes')" ng-hide="editNotes">{{ item.Notes }}</span>
 					<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.notes" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('notes', editProp.notes)">
 				</div>	
 
 				<!-- Date Column -->
-				<div class="col-md-1 data-cell">{{ item.date | date:'MM/dd/yyyy'}}</div>
+				<div class="col-md-1 data-cell">{{ item.DateAdded | date:'MM/dd/yyyy'}}</div>
 				
 				<!-- Delete Column -->
 				<div class="col-md-1 del-button data-cell right"><span class="glyphicon glyphicon-remove hand" ng-click="deleteItem()"></span></div>
