@@ -1,13 +1,19 @@
 app.controller("frontCtrl", [
   "$scope",
   "$http",
+  "$location",
   "getFactory",
   "authFactory",
   
-  function($scope, $http, getFactory, authFactory) {
+  function($scope, $http, $location, getFactory, authFactory) {
     
-    //var currentUser = authFactory.getUser();
-    var selectedFilters = {};
+    let currentUser = authFactory.getUser();
+
+    if (currentUser === null) {
+      $location.path('/login');
+    };
+
+    let selectedFilters = {};
     
     // For editing properties of existing items
     $scope.editProp = {
@@ -28,7 +34,33 @@ app.controller("frontCtrl", [
       date: ""
     };
 
+    // Example JSON from API
+      // {
+      //   "IdMediaItem": 7,
+      //   "IdMediaType": 5,
+      //   "Name": "Game 1",
+      //   "Recommender": "Bobandy",
+      //   "Notes": "Associated with my userID",
+      //   "Finished": false,
+      //   "Favorite": false,
+      //   "Rating": 0,
+      //   "DateAdded": "2016-06-15T00:00:00"
+      // }
 
+    $scope.loadFromAPI = function() {
+      $scope.localCopy = [];
+      getFactory().then(
+          function(JSONobjFromGet) { // Handle RESOLVE
+            for(var i in JSONobjFromGet) {
+              $scope.localCopy.push(JSONobjFromGet[i]);
+            }
+            console.table($scope.localCopy);
+          },
+          function() { // Handle REJECT
+            console.log("Rejected");
+          }
+      );
+    };
 
 
     $scope.cancelAdd = function() {
@@ -112,15 +144,15 @@ app.controller("frontCtrl", [
 
     // Add class based on type to each list item for color-coding
     $scope.applyClass = function(item) {
-      if (item.type === "Book") {
+      if (item.Type === "Book") {
         return "book-item";
-      } else if (item.type === "Movie") {
+      } else if (item.Type === "Movie") {
         return "movie-item";
-      } else if (item.type === "TV Show") {
+      } else if (item.Type === "TV Show") {
         return "show-item";
-      } else if (item.type === "Music") {
+      } else if (item.Type === "Music") {
         return "music-item";
-      } else if (item.type === "Game") {
+      } else if (item.Type === "Game") {
         return "game-item";
       } else {
         return "";
@@ -128,7 +160,7 @@ app.controller("frontCtrl", [
     };
 
 
-    // $scope.loadFromFirebase(); // Get list on page load
+    $scope.loadFromAPI(); // Get list on page load
     $("#name-input").focus(); // Set focus to new item inputs
     $("#logout-link").show(); // Show logout link
 
