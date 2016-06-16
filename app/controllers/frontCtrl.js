@@ -23,6 +23,8 @@ app.controller("frontCtrl", [
       Notes: ""
     };
 
+    $scope.newItemTypeName = "";
+
     $scope.newItem = {
       DateAdded: "", 
       Favorite: false, 
@@ -45,15 +47,12 @@ app.controller("frontCtrl", [
             }
             console.log("$scope.mediaTypes: ", $scope.mediaTypes);
 
-    // ~~~ TESTING GET IDMEDIATYPE BY MEDIATYPE NAME ~~~
-            var selectedTypeObj = $scope.mediaTypes.filter(function(item) {
-              return item.Name == "TV Show";
-            });
-            console.log("selectedTypeObj: ", selectedTypeObj);
-            var idOfSelectedType = selectedTypeObj[0].IdMediaType;
-            console.log("idOfSelectedType: ", idOfSelectedType);
-
-
+            // ~~~ TEST getMediaId ~~~
+            console.log("Movie ID: ", $scope.getMediaId("Movie"));
+            console.log("TV Show ID: ", $scope.getMediaId("TV Show"));
+            console.log("Music ID: ", $scope.getMediaId("Music"));
+            console.log("Game ID: ", $scope.getMediaId("Game"));
+            console.log("Book ID: ", $scope.getMediaId("Book"));
           },
           function() {
             console.log("Rejected");
@@ -97,7 +96,8 @@ app.controller("frontCtrl", [
     $scope.addNewItem = function() {
       $scope.newItem.DateAdded = new Date(); // Set date added
       $scope.newItem.IdAppUser = currentUser.IdAppUser; // Tie this item to current user
-      $scope.newItem.IdMediaType = 3 // TEST - GET THIS FROM SELECTED TYPE!
+      // $scope.newItem.IdMediaType = 3 // TEST - GET THIS FROM SELECTED TYPE!
+      $scope.newItem.IdMediaType = $scope.getMediaId($scope.newItemTypeName);
 
       $http.post(apiURL + '/mediaitem',
 
@@ -131,12 +131,23 @@ app.controller("frontCtrl", [
       );
     }
 
+    $scope.getMediaId = function(typeName) {
+      // ~~~ TESTING GET IDMEDIATYPE BY MEDIATYPE NAME ~~~
+      let selectedTypeObj = $scope.mediaTypes.filter(function(item) {
+        return item.Name == typeName;
+      });
+      // console.log("selectedTypeObj: ", selectedTypeObj);
+      let typeId = selectedTypeObj[0].IdMediaType;
+      // console.log("idOfSelectedType: ", idOfSelectedType);
+      return typeId;
+    }
+
     $scope.cancelAdd = function() {
       // Clear input boxes and set focus back to Name
-      $scope.newItem.name = null;
-      $scope.newItem.type = null;
-      $scope.newItem.recommended = null;
-      $scope.newItem.notes = null;
+      $scope.newItem.Name = null;
+      $scope.newItemTypeName = null;
+      $scope.newItem.Recommender = null;
+      $scope.newItem.Notes = null;
       $("#name-input").focus();
     };
 
