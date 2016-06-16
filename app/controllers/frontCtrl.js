@@ -34,19 +34,6 @@ app.controller("frontCtrl", [
       date: ""
     };
 
-    // Example JSON from API
-      // {
-      //   "IdMediaItem": 7,
-      //   "IdMediaType": 5,
-      //   "Name": "Game 1",
-      //   "Recommender": "Bobandy",
-      //   "Notes": "Associated with my userID",
-      //   "Finished": false,
-      //   "Favorite": false,
-      //   "Rating": 0,
-      //   "DateAdded": "2016-06-15T00:00:00"
-      // }
-
     $scope.loadFromAPI = function() {
       $scope.localCopy = [];
       getFactory().then(
@@ -62,6 +49,27 @@ app.controller("frontCtrl", [
       );
     };
 
+    // ~~~~~~~~~~~~
+    // ~~~ POST ~~~
+    // ~~~~~~~~~~~~
+
+    // Example POST object:
+
+    // {
+    //   "DateAdded" : "3/3/2016",
+    //   "Favorite" : false,
+    //   "Finished" : false,
+    //   "IdAppUser" : 14,
+    //   "IdMediaType" : 1,
+    //   "Name" : "Book POST test",
+    //   "Notes" : "This was created via POST method",
+    //   "Rating" : 0,
+    //   "Recommender" : "Trevor"
+    // }
+
+    $scope.addNewItem = function() {
+      console.log("addNewItem function called");
+    }
 
     $scope.cancelAdd = function() {
       // Clear input boxes and set focus back to Name
