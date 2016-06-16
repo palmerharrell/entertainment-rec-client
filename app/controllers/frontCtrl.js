@@ -4,8 +4,9 @@ app.controller("frontCtrl", [
   "$location",
   "getFactory",
   "authFactory",
+  "apiURL",
   
-  function($scope, $http, $location, getFactory, authFactory) {
+  function($scope, $http, $location, getFactory, authFactory, apiURL) {
     
     let currentUser = authFactory.getUser();
 
@@ -17,24 +18,24 @@ app.controller("frontCtrl", [
     
     // For editing properties of existing items
     $scope.editProp = {
-      name: "",
-      recommended: "",
-      notes: ""
+      Name: "",
+      Recommender: "",
+      Notes: ""
     };
 
     $scope.newItem = {
-      id: "", 
-      fbuid: "", 
-      name: "", 
-      type: "", 
-      finished: false, 
-      recommended: "",
-      notes: "",
-      rating: 0,
-      date: ""
+      DateAdded: "", 
+      Favorite: false, 
+      Finished: false, 
+      IdAppUser: 0, 
+      IdMediaType: 0, 
+      Name: "",
+      Notes: "",
+      Rating: 0,
+      Recommender: ""
     };
 
-    $scope.loadFromAPI = function() {
+    $scope.loadMediaItems = function() {
       $scope.localCopy = [];
       getFactory().then(
           function(JSONobjFromGet) { // Handle RESOLVE
@@ -68,7 +69,40 @@ app.controller("frontCtrl", [
     // }
 
     $scope.addNewItem = function() {
-      console.log("addNewItem function called");
+      $scope.newItem.DateAdded = new Date(); // Set date added
+      $scope.newItem.IdAppUser = currentUser.IdAppUser; // Tie this item to current user
+      $scope.newItem.IdMediaType = 3 // TEST - GET THIS FROM SELECTED TYPE!
+
+      $http.post(apiURL + '/mediaitem',
+
+        JSON.stringify({
+          DateAdded: $scope.newItem.DateAdded,
+          Favorite: $scope.newItem.Favorite,
+          Finished: $scope.newItem.Finished,
+          IdAppUser: $scope.newItem.IdAppUser,
+          IdMediaType: $scope.newItem.IdMediaType,
+          Name: $scope.newItem.Name,
+          Notes: $scope.newItem.Notes,
+          Rating: $scope.newItem.Rating,
+          Recommender: $scope.newItem.Recommender
+
+        }))
+      .then(
+        function() {  // Handle RESOLVE
+          $scope.loadMediaItems(); // Reload MediaItems from API (change this to update scope array instead!)
+           // Clear input boxes on submit
+          $scope.newItem.Name = null;
+          $scope.newItem.Type = null;
+          $scope.newItem.Recommender = null;
+          $scope.newItem.Notes = null;
+          // Set focus to Name input to easily add another item
+          $("#name-input").focus();
+
+        },
+        function(response) {  // Handle REJECT
+          console.log("POST Rejected:", response);
+        }
+      );
     }
 
     $scope.cancelAdd = function() {
@@ -168,7 +202,7 @@ app.controller("frontCtrl", [
     };
 
 
-    $scope.loadFromAPI(); // Get list on page load
+    $scope.loadMediaItems(); // Get list on page load
     $("#name-input").focus(); // Set focus to new item inputs
     $("#logout-link").show(); // Show logout link
 

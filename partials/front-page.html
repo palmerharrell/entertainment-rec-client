@@ -85,7 +85,7 @@
 	<div class="col-md-1 finished-column"><!-- Finished Column--></div>
 	<div class="row new-item">
 		<div class="col-md-3">
-			<input type="text" id="name-input" ng-model="newItem.name" placeholder="Name" id="name-field">
+			<input type="text" id="name-input" ng-model="newItem.Name" placeholder="Name" id="name-field">
 		</div>
 		<div class="col-md-1">
 			<select name="typeSelect" id="type-select" ng-model="newItem.Type">
@@ -98,14 +98,14 @@
 			</select>
 		</div>
 		<div class="col-md-2">
-			<input type="text" id="recommended-input" ng-model="newItem.recommended" placeholder="Recommended By">
+			<input type="text" id="recommended-input" ng-model="newItem.Recommender" placeholder="Recommended By">
 		</div>
 		<div class="col-md-3 notes-div">
-			<input type="text" id="notes-input" ng-model="newItem.notes" ng-enter="addNewItem()" ng-esc="cancelAdd()" placeholder="Notes">
+			<input type="text" id="notes-input" ng-model="newItem.Notes" ng-enter="addNewItem()" ng-esc="cancelAdd()" placeholder="Notes">
 		</div>
 		<div class="col-md-2 usage-tip">
-			<span ng-show="!newItem.notes"></span>
-			<span ng-show="newItem.notes">Press Enter to Save or Esc to Cancel</span>
+			<span ng-show="!newItem.Notes"></span>
+			<span ng-show="newItem.Notes">Press Enter to Save or Esc to Cancel</span>
 		</div> <!-- in place of Added and Delete columns -->
 
 	</div> <!-- END .new-item -->
