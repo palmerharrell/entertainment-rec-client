@@ -50,7 +50,7 @@
 
 				<!-- Type Column -->
 				<div class="col-md-1 data-cell">
-					<span ng-click="editType = !editType; editMode('type')" ng-hide="editType">{{ item.type }}</span>
+					<span ng-click="editType = !editType; editMode('type')" ng-hide="editType">{{ item.Type }}</span>
 					<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.type" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-change="editProperty('type', editProp.type)">
 						<option value="" disabled ng-selected="true" disabled>Type</option>
 						<option value="Movie">Movie</option>
@@ -88,7 +88,7 @@
 			<input type="text" id="name-input" ng-model="newItem.name" placeholder="Name" id="name-field">
 		</div>
 		<div class="col-md-1">
-			<select name="typeSelect" id="type-select" ng-model="newItem.type">
+			<select name="typeSelect" id="type-select" ng-model="newItem.Type">
 				<option value="" disabled ng-selected="true" disabled>Type</option>
 				<option value="Movie">Movie</option>
 				<option value="TV Show">TV Show</option>
