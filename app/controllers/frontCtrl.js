@@ -45,14 +45,6 @@ app.controller("frontCtrl", [
             for (var i in mediaTypesObj.data) {
               $scope.mediaTypes.push(mediaTypesObj.data[i]);
             }
-            console.log("$scope.mediaTypes: ", $scope.mediaTypes);
-
-            // ~~~ TEST getMediaId ~~~
-            console.log("Movie ID: ", $scope.getMediaId("Movie"));
-            console.log("TV Show ID: ", $scope.getMediaId("TV Show"));
-            console.log("Music ID: ", $scope.getMediaId("Music"));
-            console.log("Game ID: ", $scope.getMediaId("Game"));
-            console.log("Book ID: ", $scope.getMediaId("Book"));
           },
           function() {
             console.log("Rejected");
@@ -141,6 +133,20 @@ app.controller("frontCtrl", [
       // console.log("idOfSelectedType: ", idOfSelectedType);
       return typeId;
     }
+
+    // Example DELETE URL: /mediaitem?itemid=6&userid=1
+
+    $scope.deleteItem = function() {
+      $http.delete(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}&itemid=${this.item.IdMediaItem}`)
+      .then(
+        function() { // Handle RESOLVE
+          $scope.loadMediaItems(); // Reload from API (TODO: Splice from scope array instead)
+        },
+        function() { // Handle REJECT
+          console.log("DELETE rejected.", response);
+        }
+      );
+    };
 
     $scope.cancelAdd = function() {
       // Clear input boxes and set focus back to Name
