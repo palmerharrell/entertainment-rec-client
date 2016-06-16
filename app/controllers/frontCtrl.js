@@ -143,6 +143,31 @@ app.controller("frontCtrl", [
       );
     };
 
+    // ~~~~~~~~~~~~~~~~~~
+    // ~~~ PUT METHOD ~~~
+    // ~~~~~~~~~~~~~~~~~~
+
+    // Example URL: http://localhost:5000/api/mediaitem?userid=12
+    
+    // Example object:
+    // {
+    //   "IdMediaItem": 24,
+    //   "IdMediaType": 4,
+    //   "IdAppUser": 12,
+    //   "Name": "EDIT TEST (edited!)",
+    //   "Recommender": "Bobandy",
+    //   "Notes": "EDIT THIS (done!)",
+    //   "Finished": false,
+    //   "Favorite": false,
+    //   "Rating": 0,
+    //   "DateAdded": "2016-05-05T00:00:00"
+    // }
+
+
+    $scope.editProperty = function(propToChange, newVal) {
+      console.log("editProperty method called");
+    }
+
     $scope.cancelAdd = function() {
       // Clear input boxes and set focus back to Name
       $scope.newItem.Name = null;
