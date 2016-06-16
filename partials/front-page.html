@@ -39,19 +39,19 @@
 			<!-- <div ng-class="applyClass(item)"> -->
 				<!-- Finished Column -->
 				<div class="col-md-1 finished-column">
-					<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('finished', !item.Finished)">
+					<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('Finished', !item.Finished)">
 				</div>
 
 				<!-- Name Column -->
 				<div class="col-md-3 data-cell">
-					<span ng-click="editName = !editName; editMode('name')" ng-hide="editName">{{ item.Name }}</span>
-					<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.name" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('name', editProp.name)">
+					<span ng-click="editName = !editName; editMode('Name')" ng-hide="editName">{{ item.Name }}</span>
+					<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.Name" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('Name', editProp.Name)">
 				</div>
 
 				<!-- Type Column -->
 				<div class="col-md-1 data-cell">
-					<span ng-click="editType = !editType; editMode('type')" ng-hide="editType">{{ item.Type }}</span>
-					<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.type" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-change="editProperty('type', editProp.type)">
+					<span ng-click="editType = !editType; editMode('Type')" ng-hide="editType">{{ item.Type }}</span>
+					<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.Type" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-change="editProperty('Type', editProp.Type)">
 						<option value="" disabled ng-selected="true" disabled>Type</option>
 						<option value="Movie">Movie</option>
 						<option value="TV Show">TV Show</option>
@@ -63,14 +63,14 @@
 
 				<!-- Recommended Column -->
 				<div class="col-md-2 data-cell">
-					<span ng-click="editRec = !editRec; editMode('recommended')" ng-hide="editRec">{{ item.Recommender }}</span>
-					<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.recommended" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('recommended', editProp.recommended)">
+					<span ng-click="editRec = !editRec; editMode('Recommender')" ng-hide="editRec">{{ item.Recommender }}</span>
+					<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.Recommender" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('Recommender', editProp.Recommender)">
 				</div>		
 
 				<!-- Notes Column -->
 				<div class="col-md-3 data-cell notes-column">
-					<span ng-click="editNotes = !editNotes; editMode('notes')" ng-hide="editNotes">{{ item.Notes }}</span>
-					<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.notes" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('notes', editProp.notes)">
+					<span ng-click="editNotes = !editNotes; editMode('Notes')" ng-hide="editNotes">{{ item.Notes }}</span>
+					<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.Notes" ng-esc="cancelEdit()" ng-blur="cancelEdit()" ng-enter="editProperty('Notes', editProp.Notes)">
 				</div>	
 
 				<!-- Date Column -->

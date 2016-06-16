@@ -124,17 +124,12 @@ app.controller("frontCtrl", [
     }
 
     $scope.getMediaId = function(typeName) {
-      // ~~~ TESTING GET IDMEDIATYPE BY MEDIATYPE NAME ~~~
       let selectedTypeObj = $scope.mediaTypes.filter(function(item) {
         return item.Name == typeName;
       });
-      // console.log("selectedTypeObj: ", selectedTypeObj);
       let typeId = selectedTypeObj[0].IdMediaType;
-      // console.log("idOfSelectedType: ", idOfSelectedType);
       return typeId;
     }
-
-    // Example DELETE URL: /mediaitem?itemid=6&userid=1
 
     $scope.deleteItem = function() {
       $http.delete(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}&itemid=${this.item.IdMediaItem}`)
@@ -163,7 +158,7 @@ app.controller("frontCtrl", [
     };
 
     $scope.cancelEdit = function() {
-      //$scope.loadFromFirebase(); // Reload Firebase db
+      $scope.loadMediaItems(); // Reload Firebase db
     };
 
     $scope.filterButtonClasses = function(e) {
