@@ -196,7 +196,7 @@ app.controller("frontCtrl", [
     };
 
     $scope.cancelEdit = function() {
-      $scope.loadMediaItems(); // Reload from API
+      $("#name-input").focus();
     };
 
     $scope.filterButtonClasses = function(e) {
