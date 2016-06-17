@@ -11,6 +11,7 @@ app.controller('LoginCtrl',
   function ($http, $scope, $location, apiURL, authFactory) {
 
     console.log("LoginCtrl loaded");
+    $("#logout-link").hide();
 
     $scope.githubOauth = function () {
       OAuth.initialize('TVVqPAV8aRr7Rb5TUDTOFMd3fgc')

@@ -4,8 +4,9 @@ app.controller("frontCtrl", [
   "$location",
   "getFactory",
   "authFactory",
+  "apiURL",
   
-  function($scope, $http, $location, getFactory, authFactory) {
+  function($scope, $http, $location, getFactory, authFactory, apiURL) {
     
     let currentUser = authFactory.getUser();
 
@@ -17,44 +18,47 @@ app.controller("frontCtrl", [
     
     // For editing properties of existing items
     $scope.editProp = {
-      name: "",
-      recommended: "",
-      notes: ""
+      Name: "",
+      Recommender: "",
+      Notes: ""
     };
+
+    $scope.newItemTypeName = "";
 
     $scope.newItem = {
-      id: "", 
-      fbuid: "", 
-      name: "", 
-      type: "", 
-      finished: false, 
-      recommended: "",
-      notes: "",
-      rating: 0,
-      date: ""
+      DateAdded: "", 
+      Favorite: false, 
+      Finished: false, 
+      IdAppUser: 0, 
+      IdMediaType: 0, 
+      Name: "",
+      Notes: "",
+      Rating: 0,
+      Recommender: ""
     };
 
-    // Example JSON from API
-      // {
-      //   "IdMediaItem": 7,
-      //   "IdMediaType": 5,
-      //   "Name": "Game 1",
-      //   "Recommender": "Bobandy",
-      //   "Notes": "Associated with my userID",
-      //   "Finished": false,
-      //   "Favorite": false,
-      //   "Rating": 0,
-      //   "DateAdded": "2016-06-15T00:00:00"
-      // }
+    $scope.loadMediaTypes = function() {
+      $scope.mediaTypes = [];
+      $http.get(`${apiURL}/mediatype`)
+        .then(
+          function(mediaTypesObj) {
+            for (var i in mediaTypesObj.data) {
+              $scope.mediaTypes.push(mediaTypesObj.data[i]);
+            }
+          },
+          function() {
+            console.log("Rejected");
+          }
+        );
+    }
 
-    $scope.loadFromAPI = function() {
+    $scope.loadMediaItems = function() {
       $scope.localCopy = [];
       getFactory().then(
           function(JSONobjFromGet) { // Handle RESOLVE
             for(var i in JSONobjFromGet) {
               $scope.localCopy.push(JSONobjFromGet[i]);
             }
-            console.table($scope.localCopy);
           },
           function() { // Handle REJECT
             console.log("Rejected");
@@ -62,13 +66,102 @@ app.controller("frontCtrl", [
       );
     };
 
+    $scope.addNewItem = function() {
+      $scope.newItem.DateAdded = new Date();
+      $scope.newItem.IdAppUser = currentUser.IdAppUser;
+      $scope.newItem.IdMediaType = $scope.getMediaId($scope.newItemTypeName);
+
+      $http.post(apiURL + '/mediaitem',
+
+        JSON.stringify({
+          DateAdded: $scope.newItem.DateAdded,
+          Favorite: $scope.newItem.Favorite,
+          Finished: $scope.newItem.Finished,
+          IdAppUser: $scope.newItem.IdAppUser,
+          IdMediaType: $scope.newItem.IdMediaType,
+          Name: $scope.newItem.Name,
+          Notes: $scope.newItem.Notes,
+          Rating: $scope.newItem.Rating,
+          Recommender: $scope.newItem.Recommender
+
+        }))
+      .then(
+        function() {  // Handle RESOLVE
+          $scope.loadMediaItems(); // Reload MediaItems from API (change this to update scope array instead!)
+           // Clear input boxes on submit
+          $scope.newItem.Name = null;
+          $scope.newItem.Type = null;
+          $scope.newItem.Recommender = null;
+          $scope.newItem.Notes = null;
+          // Set focus to Name input to easily add another item
+          $("#name-input").focus();
+
+        },
+        function(response) {  // Handle REJECT
+          console.log("POST Rejected:", response);
+        }
+      );
+    }
+
+    $scope.getMediaId = function(typeName) {
+      let selectedTypeObj = $scope.mediaTypes.filter(function(item) {
+        return item.Name == typeName;
+      });
+      let typeId = selectedTypeObj[0].IdMediaType;
+      return typeId;
+    }
+
+    $scope.deleteItem = function() {
+      $http.delete(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}&itemid=${this.item.IdMediaItem}`)
+      .then(
+        function() { // Handle RESOLVE
+          $scope.loadMediaItems(); // Reload from API (TODO: Splice from scope array instead)
+        },
+        function() { // Handle REJECT
+          console.log("DELETE rejected.", response);
+        }
+      );
+    };
+
+    $scope.editProperty = function(propToChange, newVal) {
+      let itemToUpdate = this.item;
+      let updatedItem = {
+        IdMediaItem: this.item.IdMediaItem,
+        IdMediaType: this.item.IdMediaType,
+        IdAppUser: currentUser.IdAppUser,
+        Name: this.item.Name,
+        Recommender: this.item.Recommender,
+        Notes: this.item.Notes,
+        Finished: this.item.Finished,
+        Favorite: this.item.Favorite,
+        Rating: this.item.Rating,
+        DateAdded: this.item.DateAdded
+      }
+
+      if (propToChange == "Type") {
+        updatedItem["IdMediaType"] = $scope.getMediaId(newVal);
+      } else {
+        updatedItem[propToChange] = newVal;
+      };
+
+      $http.put(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}`,
+        JSON.stringify(updatedItem))
+      .then(
+        function() {  // Handle RESOLVE
+          $scope.loadMediaItems(); // Change this!
+        },
+        function(response) {  // Handle REJECT
+          console.log("PUT Rejected:", response);
+        }
+      );
+    }
 
     $scope.cancelAdd = function() {
       // Clear input boxes and set focus back to Name
-      $scope.newItem.name = null;
-      $scope.newItem.type = null;
-      $scope.newItem.recommended = null;
-      $scope.newItem.notes = null;
+      $scope.newItem.Name = null;
+      $scope.newItemTypeName = null;
+      $scope.newItem.Recommender = null;
+      $scope.newItem.Notes = null;
       $("#name-input").focus();
     };
 
@@ -78,7 +171,7 @@ app.controller("frontCtrl", [
     };
 
     $scope.cancelEdit = function() {
-      //$scope.loadFromFirebase(); // Reload Firebase db
+      $scope.loadMediaItems(); // Reload Firebase db
     };
 
     $scope.filterButtonClasses = function(e) {
@@ -96,7 +189,6 @@ app.controller("frontCtrl", [
     };
 
     $scope.sortLinkClasses = function(e) {
-      console.log("event", e);
       var clickedLinkId = `#${e.target.id}`;
       var sortLinks = $(".sort-link");
       for (var i = 0; i < sortLinks.length; i++) {
@@ -159,8 +251,12 @@ app.controller("frontCtrl", [
       }
     };
 
+    // Get MediaTypes and MediaItems on page load if user is authenticated
+    if (currentUser != null) {
+      $scope.loadMediaTypes();
+      $scope.loadMediaItems();
+    };
 
-    $scope.loadFromAPI(); // Get list on page load
     $("#name-input").focus(); // Set focus to new item inputs
     $("#logout-link").show(); // Show logout link
 
