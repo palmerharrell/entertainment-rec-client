@@ -59,7 +59,6 @@ app.controller("frontCtrl", [
             for(var i in JSONobjFromGet) {
               $scope.localCopy.push(JSONobjFromGet[i]);
             }
-            console.table($scope.localCopy);
           },
           function() { // Handle REJECT
             console.log("Rejected");
@@ -67,28 +66,9 @@ app.controller("frontCtrl", [
       );
     };
 
-    // ~~~~~~~~~~~~
-    // ~~~ POST ~~~
-    // ~~~~~~~~~~~~
-
-    // Example POST object:
-
-    // {
-    //   "DateAdded" : "3/3/2016",
-    //   "Favorite" : false,
-    //   "Finished" : false,
-    //   "IdAppUser" : 14,
-    //   "IdMediaType" : 1,
-    //   "Name" : "Book POST test",
-    //   "Notes" : "This was created via POST method",
-    //   "Rating" : 0,
-    //   "Recommender" : "Trevor"
-    // }
-
     $scope.addNewItem = function() {
-      $scope.newItem.DateAdded = new Date(); // Set date added
-      $scope.newItem.IdAppUser = currentUser.IdAppUser; // Tie this item to current user
-      // $scope.newItem.IdMediaType = 3 // TEST - GET THIS FROM SELECTED TYPE!
+      $scope.newItem.DateAdded = new Date();
+      $scope.newItem.IdAppUser = currentUser.IdAppUser;
       $scope.newItem.IdMediaType = $scope.getMediaId($scope.newItemTypeName);
 
       $http.post(apiURL + '/mediaitem',
@@ -143,29 +123,37 @@ app.controller("frontCtrl", [
       );
     };
 
-    // ~~~~~~~~~~~~~~~~~~
-    // ~~~ PUT METHOD ~~~
-    // ~~~~~~~~~~~~~~~~~~
-
-    // Example URL: http://localhost:5000/api/mediaitem?userid=12
-    
-    // Example object:
-    // {
-    //   "IdMediaItem": 24,
-    //   "IdMediaType": 4,
-    //   "IdAppUser": 12,
-    //   "Name": "EDIT TEST (edited!)",
-    //   "Recommender": "Bobandy",
-    //   "Notes": "EDIT THIS (done!)",
-    //   "Finished": false,
-    //   "Favorite": false,
-    //   "Rating": 0,
-    //   "DateAdded": "2016-05-05T00:00:00"
-    // }
-
-
     $scope.editProperty = function(propToChange, newVal) {
-      console.log("editProperty method called");
+      let itemToUpdate = this.item;
+      let updatedItem = {
+        IdMediaItem: this.item.IdMediaItem,
+        IdMediaType: this.item.IdMediaType,
+        IdAppUser: currentUser.IdAppUser,
+        Name: this.item.Name,
+        Recommender: this.item.Recommender,
+        Notes: this.item.Notes,
+        Finished: this.item.Finished,
+        Favorite: this.item.Favorite,
+        Rating: this.item.Rating,
+        DateAdded: this.item.DateAdded
+      }
+
+      if (propToChange == "Type") {
+        updatedItem["IdMediaType"] = $scope.getMediaId(newVal);
+      } else {
+        updatedItem[propToChange] = newVal;
+      };
+
+      $http.put(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}`,
+        JSON.stringify(updatedItem))
+      .then(
+        function() {  // Handle RESOLVE
+          $scope.loadMediaItems(); // Change this!
+        },
+        function(response) {  // Handle REJECT
+          console.log("PUT Rejected:", response);
+        }
+      );
     }
 
     $scope.cancelAdd = function() {
@@ -201,7 +189,6 @@ app.controller("frontCtrl", [
     };
 
     $scope.sortLinkClasses = function(e) {
-      console.log("event", e);
       var clickedLinkId = `#${e.target.id}`;
       var sortLinks = $(".sort-link");
       for (var i = 0; i < sortLinks.length; i++) {
