@@ -171,7 +171,9 @@ app.controller("frontCtrl", [
         JSON.stringify(updatedItem))
       .then(
         function() {  // Handle RESOLVE
-          $scope.loadMediaItems(); // Change this!
+          // Update local array with updatedItem
+          updatedItem["Type"] = $scope.getMediaName(updatedItem.IdMediaType);
+          $scope.localCopy[$scope.localCopy.indexOf(itemToUpdate)] = updatedItem;
         },
         function(response) {  // Handle REJECT
           console.log("PUT Rejected:", response);
