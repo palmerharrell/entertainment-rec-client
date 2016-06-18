@@ -132,10 +132,20 @@ body {
 }
 
 #new-name {
+	position: relative;
+	top: -1px;
+	width: 250px;
+}
+
+#new-rec {
+	position: relative;
+	top: -1px;
 	width: 250px;
 }
 
 #new-notes {
+	position: relative;
+	top: -1px;
 	width: 370px;
 }
 

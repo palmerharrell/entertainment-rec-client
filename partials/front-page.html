@@ -35,50 +35,48 @@
 	<div class="spreadsheet">
 	<!-- START ng-repeat .list-item -->
 		<div class="row list-item"  ng-class="applyClass(item)" ng-repeat="item in localCopy | filter: selectedFilters | orderBy: sortOrder">
-			
-			<!-- <div ng-class="applyClass(item)"> -->
-				<!-- Finished Column -->
-				<div class="col-md-1 finished-column">
-					<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('Finished', !item.Finished)">
-				</div>
-
-				<!-- Name Column -->
-				<div class="col-md-3 data-cell">
-					<span ng-click="editName = !editName; editMode('Name')" ng-hide="editName">{{ item.Name }}</span>
-					<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.Name" ng-esc="cancelEdit();" ng-blur="editName = !editName" ng-enter="editProperty('Name', editProp.Name)">
-				</div>
-
-				<!-- Type Column -->
-				<div class="col-md-1 data-cell">
-					<span ng-click="editType = !editType; editMode('Type')" ng-hide="editType">{{ item.Type }}</span>
-					<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.Type" ng-esc="cancelEdit()" ng-blur="editType = !editType" ng-change="editProperty('Type', editProp.Type); editType = !editType">
-						<option value="" disabled ng-selected="true" disabled>Type</option>
-						<option value="Movie">Movie</option>
-						<option value="TV Show">TV Show</option>
-						<option value="Music">Music</option>
-						<option value="Book">Book</option>
-						<option value="Game">Game</option>
-					</select>
-				</div>
-
-				<!-- Recommended Column -->
-				<div class="col-md-2 data-cell">
-					<span ng-click="editRec = !editRec; editMode('Recommender')" ng-hide="editRec">{{ item.Recommender }}</span>
-					<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.Recommender" ng-esc="cancelEdit()" ng-blur="editRec = !editRec" ng-enter="editProperty('Recommender', editProp.Recommender)">
-				</div>		
-
-				<!-- Notes Column -->
-				<div class="col-md-3 data-cell notes-column">
-					<span ng-click="editNotes = !editNotes; editMode('Notes')" ng-hide="editNotes">{{ item.Notes }}</span>
-					<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.Notes" ng-esc="cancelEdit()" ng-blur="editNotes = !editNotes" ng-enter="editProperty('Notes', editProp.Notes)">
-				</div>	
-
-				<!-- Date Column -->
-				<div class="col-md-1 data-cell">{{ item.DateAdded | date:'MM/dd/yyyy'}}</div>
 				
-				<!-- Delete Column -->
-				<div class="col-md-1 del-button data-cell right"><span class="glyphicon glyphicon-remove hand" ng-click="deleteItem()"></span></div>
-			<!-- </div> END Type class DIV -->
+			<!-- Finished Column -->
+			<div class="col-md-1 finished-column">
+				<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('Finished', !item.Finished)">
+			</div>
+
+			<!-- Name Column -->
+			<div class="col-md-3 data-cell">
+				<span ng-click="editName = !editName; editMode('Name')" ng-hide="editName">{{ item.Name }}</span>
+				<input ng-show="editName" focus-on-show select-on-focus type="text" id="new-name" ng-model="editProp.Name" ng-esc="cancelEdit();" ng-blur="editName = !editName" ng-enter="editProperty('Name', editProp.Name)">
+			</div>
+
+			<!-- Type Column -->
+			<div class="col-md-1 data-cell">
+				<span ng-click="editType = !editType; editMode('Type')" ng-hide="editType">{{ item.Type }}</span>
+				<select ng-show="editType" focus-on-show id="new-rec" ng-model="editProp.Type" ng-esc="cancelEdit()" ng-blur="editType = !editType" ng-change="editProperty('Type', editProp.Type); editType = !editType">
+					<option value="" disabled ng-selected="true" disabled>Type</option>
+					<option value="Movie">Movie</option>
+					<option value="TV Show">TV Show</option>
+					<option value="Music">Music</option>
+					<option value="Book">Book</option>
+					<option value="Game">Game</option>
+				</select>
+			</div>
+
+			<!-- Recommended Column -->
+			<div class="col-md-2 data-cell">
+				<span ng-click="editRec = !editRec; editMode('Recommender')" ng-hide="editRec">{{ item.Recommender }}</span>
+				<input ng-show="editRec" focus-on-show select-on-focus type="text" id="new-rec" ng-model="editProp.Recommender" ng-esc="cancelEdit()" ng-blur="editRec = !editRec" ng-enter="editProperty('Recommender', editProp.Recommender)">
+			</div>		
+
+			<!-- Notes Column -->
+			<div class="col-md-3 data-cell notes-column">
+				<span ng-click="editNotes = !editNotes; editMode('Notes')" ng-hide="editNotes">{{ item.Notes }}</span>
+				<input ng-show="editNotes" focus-on-show select-on-focus type="text" id="new-notes" ng-model="editProp.Notes" ng-esc="cancelEdit()" ng-blur="editNotes = !editNotes" ng-enter="editProperty('Notes', editProp.Notes)">
+			</div>	
+
+			<!-- Date Column -->
+			<div class="col-md-1 data-cell">{{ item.DateAdded | date:'MM/dd/yyyy'}}</div>
+			
+			<!-- Delete Column -->
+			<div class="col-md-1 del-button data-cell right"><span class="glyphicon glyphicon-remove hand" ng-click="deleteItem()"></span></div>
 		</div> <!-- END ng-repeat .list-item -->
 	</div> <!-- END .spreadsheet -->
 
