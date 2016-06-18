@@ -137,6 +137,11 @@ body {
 	width: 250px;
 }
 
+#edit-name {
+	position: relative;
+	top: -1px;
+}
+
 #new-rec {
 	position: relative;
 	top: -1px;
@@ -180,9 +185,15 @@ body {
 
 #type-select {
 	position: relative;
-	left: 10px;
+	left: 15px;
 	border: none;
 	margin-top: 3px;
+}
+
+#edit-type {
+	position: relative;
+	// top: 1px;
+	left: -2px;
 }
 
 .usage-tip {

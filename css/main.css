@@ -289,6 +289,10 @@ body {
   top: -1px;
   width: 250px; }
 
+#edit-name {
+  position: relative;
+  top: -1px; }
+
 #new-rec {
   position: relative;
   top: -1px;
@@ -324,9 +328,13 @@ body {
 
 #type-select {
   position: relative;
-  left: 10px;
+  left: 15px;
   border: none;
   margin-top: 3px; }
+
+#edit-type {
+  position: relative;
+  left: -2px; }
 
 .usage-tip {
   margin: 0;
