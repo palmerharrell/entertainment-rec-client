@@ -86,13 +86,28 @@ app.controller("frontCtrl", [
 
         }))
       .then(
-        function() {  // Handle RESOLVE
-          $scope.loadMediaItems(); // Reload MediaItems from API (change this to update scope array instead!)
-           // Clear input boxes on submit
+        function(response) {  // Handle RESOLVE
+          // Add new item to local array instead of relaoding from API:
+          let newLocalItem = {
+            IdMediaItem : response.data.IdMediaItem,
+            IdMediaType : response.data.IdMediaType,
+            Name : response.data.Name,
+            Recommender : response.data.Recommender,
+            Notes : response.data.Notes,
+            Finished : response.data.Finished,
+            Favorite : response.data.Favorite,
+            Rating : response.data.Rating,
+            DateAdded : response.data.DateAdded,
+            Type : $scope.getMediaName(response.data.IdMediaType)
+          }
+          $scope.localCopy.push(newLocalItem);
+
+          // Clear input boxes on submit
           $scope.newItem.Name = null;
           $scope.newItem.Type = null;
           $scope.newItem.Recommender = null;
           $scope.newItem.Notes = null;
+
           // Set focus to Name input to easily add another item
           $("#name-input").focus();
 
@@ -111,11 +126,21 @@ app.controller("frontCtrl", [
       return typeId;
     }
 
+    $scope.getMediaName = function(typeId) {
+      let selectedTypeObj = $scope.mediaTypes.filter(function(item) {
+        return item.IdMediaType == typeId;
+      });
+      let typeName = selectedTypeObj[0].Name;
+      return typeName;
+    }
+
     $scope.deleteItem = function() {
+      let itemToDelete = this.item;
       $http.delete(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}&itemid=${this.item.IdMediaItem}`)
       .then(
         function() { // Handle RESOLVE
-          $scope.loadMediaItems(); // Reload from API (TODO: Splice from scope array instead)
+          // Remove item from localCopy
+          $scope.localCopy.splice($scope.localCopy.indexOf(itemToDelete), 1);
         },
         function() { // Handle REJECT
           console.log("DELETE rejected.", response);
@@ -148,7 +173,9 @@ app.controller("frontCtrl", [
         JSON.stringify(updatedItem))
       .then(
         function() {  // Handle RESOLVE
-          $scope.loadMediaItems(); // Change this!
+          // Update local array with updatedItem
+          updatedItem["Type"] = $scope.getMediaName(updatedItem.IdMediaType);
+          $scope.localCopy[$scope.localCopy.indexOf(itemToUpdate)] = updatedItem;
         },
         function(response) {  // Handle REJECT
           console.log("PUT Rejected:", response);
@@ -171,7 +198,7 @@ app.controller("frontCtrl", [
     };
 
     $scope.cancelEdit = function() {
-      $scope.loadMediaItems(); // Reload Firebase db
+      $("#name-input").focus();
     };
 
     $scope.filterButtonClasses = function(e) {
