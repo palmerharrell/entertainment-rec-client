@@ -135,10 +135,12 @@ app.controller("frontCtrl", [
     }
 
     $scope.deleteItem = function() {
+      let itemToDelete = this.item;
       $http.delete(`${apiURL}/mediaitem?userid=${currentUser.IdAppUser}&itemid=${this.item.IdMediaItem}`)
       .then(
         function() { // Handle RESOLVE
-          $scope.loadMediaItems(); // Reload from API (TODO: Splice from scope array instead)
+          // Remove item from localCopy
+          $scope.localCopy.splice($scope.localCopy.indexOf(itemToDelete), 1);
         },
         function() { // Handle REJECT
           console.log("DELETE rejected.", response);
