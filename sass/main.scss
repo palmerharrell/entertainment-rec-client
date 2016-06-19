@@ -228,9 +228,10 @@ body {
 .glyphicon-copy {
 	color: white;
 	-webkit-text-stroke: 1px gray;
-	span:hover {
- 		color: gray;
- 	}
+}
+
+.glyphicon-copy:hover {
+	color: gray;
 }
 
 .right {

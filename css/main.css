@@ -363,8 +363,9 @@ body {
 .glyphicon-copy {
   color: white;
   -webkit-text-stroke: 1px gray; }
-  .glyphicon-copy span:hover {
-    color: gray; }
+
+.glyphicon-copy:hover {
+  color: gray; }
 
 .right {
   text-align: right; }
