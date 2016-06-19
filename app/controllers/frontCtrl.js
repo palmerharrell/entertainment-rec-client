@@ -102,11 +102,16 @@ app.controller("frontCtrl", [
           }
           $scope.localCopy.push(newLocalItem);
 
-          // Clear input boxes on submit
+          // Reset newItem values and clear input boxes on submit
           $scope.newItem.Name = null;
           $scope.newItem.Type = null;
           $scope.newItem.Recommender = null;
           $scope.newItem.Notes = null;
+          $scope.newItem.Favorite = false;
+          $scope.newItem.Finshed = false;
+          $scope.newItem.IdMediaType = 0;
+          $scope.newItem.Rating = 0;
+          $scope.newItem.DateAdded = null;
 
           // Set focus to Name input to easily add another item
           $("#name-input").focus();
@@ -116,6 +121,19 @@ app.controller("frontCtrl", [
           console.log("POST Rejected:", response);
         }
       );
+    }
+
+    $scope.cloneItem = function() {
+      let itemToClone = this.item;
+      $scope.newItemTypeName = $scope.getMediaName(itemToClone.IdMediaType);
+      $scope.newItem.Favorite = itemToClone.Favorite;
+      $scope.newItem.Finished = itemToClone.Finished;
+      $scope.newItem.Name = itemToClone.Name;
+      $scope.newItem.Notes = itemToClone.Notes;
+      $scope.newItem.Rating = itemToClone.Rating;
+      $scope.newItem.Recommender = itemToClone.Recommender;
+
+      $scope.addNewItem();
     }
 
     $scope.getMediaId = function(typeName) {
