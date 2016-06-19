@@ -23,13 +23,13 @@
 	</div> <!-- END Filter rows -->
 
 	<div class="row list-headers">
-		<div class="col-md-1 finished-column"><!-- Finished --></div>
-		<div class="col-md-3 name-header"><span id="name-link" class="hand sort-link" ng-click="sortOrder = 'Name'; sortLinkClasses($event)">Name</span></div>
+		<div class="col-md-3 finished-column"><!-- Finished --></div>
+		<div class="col-md-2 name-header"><span id="name-link" class="hand sort-link" ng-click="sortOrder = 'Name'; sortLinkClasses($event)">Name</span></div>
 		<div class="col-md-1 type-header"><span id="type-link" class="hand sort-link" ng-click="sortOrder = 'Type'; sortLinkClasses($event)">Type</span></div>
 		<div class="col-md-2 rec-header"><span id="rec-link" class="hand sort-link" ng-click="sortOrder = 'Recommender'; sortLinkClasses($event)">Recommended By</span></div>
 		<div class="col-md-3 notes-header"><span id="notes-link" class="hand sort-link" ng-click="sortOrder = 'Notes'; sortLinkClasses($event)">Notes</span></div>
-		<div class="col-md-1"><span id="added-link" class="active-sort sort-link" ng-click="sortOrder = 'DateAdded'; sortLinkClasses($event)">Added</span></div>
-		<div class="col-md-1 right"><!-- Delete --></div>
+		<div class="col-md-1 added-header"><span id="added-link" class="active-sort sort-link" ng-click="sortOrder = 'DateAdded'; sortLinkClasses($event)">Added</span></div>
+		<!-- <div class="col-md-1 right">Delete</div> -->
 	</div> <!-- END Headings row -->
 
 	<div class="spreadsheet">
@@ -41,8 +41,13 @@
 				<input type="checkbox" ng-checked="item.Finished==true" ng-click="editProperty('Finished', !item.Finished)">
 			</div>
 
+			<!-- Copy Column -->
+			<div class="col-md-1 finished-column">
+				<span class="glyphicon glyphicon-copy hand" ng-click="cloneItem()"></span>
+			</div>
+
 			<!-- Name Column -->
-			<div class="col-md-3 data-cell">
+			<div class="col-md-2 data-cell">
 				<span ng-click="editName = !editName; editMode('Name')" ng-hide="editName">{{ item.Name }}</span>
 				<input ng-show="editName" focus-on-show select-on-focus type="text" id="edit-name" ng-model="editProp.Name" ng-esc="cancelEdit();" ng-blur="editName = !editName" ng-enter="editProperty('Name', editProp.Name)">
 			</div>
@@ -84,7 +89,7 @@
 
 	<!-- New Item Inputs -->
 	<div class="row new-item">
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<input type="text" id="name-input" ng-model="newItem.Name" placeholder="Name" id="name-field">
 		</div>
 		<div class="col-md-1">
@@ -103,7 +108,7 @@
 		<div class="col-md-3 notes-div">
 			<input type="text" id="notes-input" ng-model="newItem.Notes" ng-enter="addNewItem()" ng-esc="cancelAdd()" placeholder="Notes">
 		</div>
-		<div class="col-md-2 usage-tip">
+		<div class="col-md-1 usage-tip">
 			<span ng-show="!newItem.Notes"></span>
 			<span ng-show="newItem.Notes">Press Enter to Save or Esc to Cancel</span>
 		</div> <!-- in place of Added and Delete columns -->

@@ -240,6 +240,7 @@ body {
 .list-headers {
   font-weight: bold;
   height: 20px;
+  padding-left: 20px;
   border-left: 1px solid white;
   border-right: 1px solid white;
   color: white;
@@ -247,10 +248,10 @@ body {
 
 .type-header,
 .rec-header {
-  padding-left: 18px; }
+  padding-left: 25px; }
 
 .name-header {
-  padding-left: 24px; }
+  padding-left: 25px; }
 
 .list-item {
   padding: 10px 10px 6px;
@@ -275,7 +276,7 @@ body {
   border-bottom: 1px solid white; }
 
 .finished-column {
-  width: 10px;
+  width: 20px;
   padding-left: 5px; }
   .finished-column input {
     margin-top: 0; }
@@ -284,24 +285,31 @@ body {
 .notes-header {
   width: 400px; }
 
+.notes-header {
+  padding-left: 25px; }
+
+.added-header {
+  padding-left: 25px; }
+
 #new-name {
   position: relative;
   top: -1px;
-  width: 250px; }
+  width: 150px; }
 
 #edit-name {
   position: relative;
-  top: -1px; }
+  top: -1px;
+  width: 150px; }
 
 #new-rec {
   position: relative;
   top: -1px;
-  width: 250px; }
+  width: 260px; }
 
 #new-notes {
   position: relative;
   top: -1px;
-  width: 370px; }
+  width: 360px; }
 
 .sort-link:hover {
   text-decoration: underline; }
@@ -311,24 +319,24 @@ body {
 
 #name-input {
   position: relative;
-  left: 20px;
+  left: 41px;
   width: 90%; }
 
 #recommended-input {
   position: relative;
-  left: 17px; }
+  left: 40px; }
 
 .notes-div {
   margin-right: 0; }
 
 #notes-input {
   position: relative;
-  left: 19px;
-  width: 80%; }
+  left: 40px;
+  width: 360px; }
 
 #type-select {
   position: relative;
-  left: 15px;
+  left: 37px;
   border: none;
   margin-top: 3px; }
 
@@ -337,6 +345,8 @@ body {
   left: -2px; }
 
 .usage-tip {
+  position: relative;
+  left: 150px;
   margin: 0;
   padding: 0;
   width: 250px; }
@@ -348,6 +358,12 @@ body {
   color: white;
   -webkit-text-stroke: 1px gray; }
   .del-button span:hover {
+    color: gray; }
+
+.glyphicon-copy {
+  color: white;
+  -webkit-text-stroke: 1px gray; }
+  .glyphicon-copy span:hover {
     color: gray; }
 
 .right {
